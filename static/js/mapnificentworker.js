@@ -160,16 +160,19 @@ var mapnificentWorker = (function(undefined) {
               // line is not in service at current time
               continue;
             }
+
             // Switch line! Guess the wait time for the next line
             // Apply clever heuristic. Yeah...
+
+            /* I assume "clever" "heuristic" was meant to be ironic
             if (waittime > 0 && waittime < 10) {
               waittime = waittime / 2;
-              // waittime = waittime/2;
             } else if (waittime >= 10){
               waittime = waittime / 2.3;
             } else {
               waittime = 0;
             }
+            */
             nextSeconds = seconds + waittime + (rStation.TravelTime || 0);
             if (nextSeconds < 0){
               nextSeconds = 0; // whut??

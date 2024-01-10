@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <title>{% if page.cityname %}{{ page.cityname }} – {% elsif page.title %}{{ page.title }} - {% endif %}Mapnificent – Dynamic Public Transport Travel Time Maps</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+    <title>{% if page.cityname %}{{ page.cityname }} – {% elsif page.title %}{{ page.title }} - {% endif %}Mapnificent</title>
 
-    <link rel="icon" type="image/png" href="{{ site.baseurl }}/static/img/favicon.png" />
-    <link href="{{ site.baseurl }}/static/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen,projection" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/static/vendor/leaflet/dist/leaflet.css">
-    <link href="{{ site.baseurl }}/static/css/screen.css" rel="stylesheet" type="text/css" media="screen,projection" />
+    <link rel="icon" href="/img/favicon-16.png" sizes="16x16">
+    <link rel="icon" href="/img/favicon-32.png" sizes="32x32">
+    <link rel="icon" href="/img/favicon-96.png" sizes="96x96">
+    <link rel="icon" href="/img/favicon-256.png" sizes="256x256">
 
-    <meta name="robots" content="index, follow" />
-    <meta name="keywords" content="Mapnificent Isochrone Maps Travel Time Public Transport" />
-    <meta name="description" content="Mapnificent shows you areas you can reach with public transport in many cities all over the world." />
-    <script src="{{ site.baseurl }}/static/vendor/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <link href="{{ site.baseurl }}/static/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen,projection">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="{{ site.baseurl }}/static/css/screen.css" rel="stylesheet" type="text/css" media="screen,projection">
+
+    <meta name="robots" content="noindex">
+    <meta name="og:title" content="Mapnificent">
+    <meta name="og:type" content="website">
+    <meta name="og:description" content="Visualize travel times by public transport.">
+    <meta name="og:image" content="{{ site.canonicalBaseUrl }}/static/img/opengraph-image.png">
+    <meta name="og:url" content="{{ site.canonicalBaseUrl }}{{ page.url | remove_trailing_slash }}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.slim.min.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj+KsslFkCOt3TvJrX2AV/Gc3wOqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script type="text/javascript" charset="utf-8">
       var Mapnificent_cities = (function(){
@@ -36,18 +44,6 @@
 
     {{ content }}
 
-   <script src="{{ site.baseurl }}/static/vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-
-   <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-     ga('create', 'UA-15128105-1', 'auto');
-     ga('send', 'pageview');
-
-   </script>
-
+    <script src="{{ site.baseurl }}/static/vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>

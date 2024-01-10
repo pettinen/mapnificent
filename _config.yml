@@ -1,5 +1,7 @@
-baseurl: ""
-tileUrl: "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+canonicalBaseUrl: "https://example.org/mapnificent"
+baseurl: "/mapnificent"
+tileUrl: "//cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}@2x.png"
+indexTileUrl: "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png"
 defaults:
   -
     scope:

@@ -99,7 +99,7 @@ a.thumbnail.active .caption {
 }
 
 .position-control {
-  padding: 10px 5px;
+  padding: 0 10px 15px 10px;
 }
 
 .position-control .position-remove {
@@ -128,6 +128,14 @@ a.thumbnail.active .caption {
 
 .footer {
   margin: 3em 0;
+}
+
+.leaflet-popup-content {
+  font-size: 1.2rem;
+}
+
+.leaflet-popup-content input {
+  margin-bottom: 20px;
 }
 
 .leaflet-popup-content h2 a {

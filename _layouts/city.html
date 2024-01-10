@@ -26,7 +26,9 @@ layout: base
           <a data-toggle="modal" href="#about">About</a>
         </li>
         <li>
-          <a href="{{ site.baseurl }}/">More Cities</a>
+          <a href="{% if site.baseurl == "" %}/{% else %}{{ site.baseurl }}{% endif %}">
+            More Cities
+          </a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -79,21 +81,19 @@ layout: base
       <div class="modal-body">
         <p>Data Copyright Holders are:</p>
         {{ content }}
-        <hr/>
+        <hr>
         <p>
           Last update: {{ page.changed | date: "%Y-%m-%d %H:%M" }} UTC
         </p>
-        <small>For journey planning services see links above.</small>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
-<script src="{{ site.baseurl }}/static/vendor/leaflet/dist/leaflet.js" type="text/javascript" charset="utf-8"></script>
-<script src="{{ site.baseurl }}/static/vendor/leaflet-hash/leaflet-hash.js" type="text/javascript" charset="utf-8"></script>
-<script src="{{ site.baseurl }}/static/vendor/bytebuffer/dist/ByteBufferAB.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="{{ site.baseurl }}/static/vendor/protobuf/dist/ProtoBuf.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ site.baseurl }}/static/vendor/leaflet-hash-plus.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/protobufjs/7.2.5/light/protobuf.min.js" integrity="sha512-7ZP3cDrPCSrrv50klGE9TA3EuKydgSnZO2RyzqnfwRF4e+aNIJG7Vmbf1RVAds39U2ZpJUPAJ6pxNbPRd5GDYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ site.baseurl }}/static/js/quadtree.js" type="text/javascript" charset="utf-8"></script>
 <script src="{{ site.baseurl }}/static/js/mapnificent.js" type="text/javascript" charset="utf-8"></script>
 
@@ -101,7 +101,7 @@ layout: base
 
 $(function(){
   $('#mapnificent-map').height($(window).height());
-  var city = {
+  const city = {
     cityid: {{ page.cityid | jsonify }},
     cityname: {{ page.cityname | jsonify }},
     coordinates: {{ page.coordinates | jsonify }},
@@ -109,24 +109,19 @@ $(function(){
     zoom: {{ page.zoom | jsonify }}
   };
 
-  var tileUrl = '{{ site.tileUrl }}';
+  const tileUrl = '{{ site.tileUrl }}';
 
-  L.Icon.Default.imagePath = '{{ site.baseurl }}/static/vendor/leaflet/dist/images/';
-  var map = L.map('mapnificent-map', {
+  const map = L.map('mapnificent-map', {
     center: [city.coordinates[1], city.coordinates[0]],
-    zoom: city.zoom
+    zoom: city.zoom,
   });
 
-  defaultTileLayer = new L.TileLayer(tileUrl, {
-    maxZoom: 17, minZoom: 4,
+  const defaultTileLayer = L.tileLayer(tileUrl, {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'});
   map.attributionControl.setPrefix("");
   map.addLayer(defaultTileLayer);
 
-  var mapnificent = new Mapnificent(map, city, {
-    baseurl: '{{ site.baseurl }}/'
-  });
-
+  const mapnificent = new Mapnificent(map, city, { baseurl: '{{ site.baseurl }}' });
   mapnificent.init();
 });
 

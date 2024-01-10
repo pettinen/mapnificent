@@ -6,55 +6,45 @@ layout: base
   <div class="container">
     <div class="jumbotron index-page">
       <h1>
-        <img src="{{ site.baseurl }}/static/img/mapnificent_big.png" alt="Mapnificent" class="img-responsive">
+        <img src="{{ site.baseurl }}/static/img/mapnificent-2x.png" alt="Mapnificent" class="img-responsive">
       </h1>
       <p>
         Shows you areas you can reach with public transport in a given time.
       </p>
-      <p>
-        <a href="#map" class="btn btn-mapnificent btn-lg smooth-scroll" role="button">
-          See all the cities
-        </a>
-        <a href="#about" data-toggle="modal" class="btn btn-default btn-lg" role="button">
-          About
-        </a>
-      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="list">
+      <div class="row">
+        {% for city in site.cities %}
+          {% unless city.hidden %}
+          <div class="col-sm-6 col-md-4 col-xs-12">
+            <a href="{{ site.baseurl }}/{{ city.cityid }}" class="thumbnail">
+              <div class="caption">
+                <h3>{{ city.cityname }}</h3>
+              </div>
+            </a>
+          </div>
+          {% endunless %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
 
 <div id="map"></div>
 
-<div class="container">
-  <div id="list">
-    <h3>All Mapnificent Cities</h3>
-    <div class="row">
-      {% for city in site.cities %}
-        {% unless city.hidden %}
-        <div class="col-sm-6 col-md-4 col-xs-12">
-          <a href="{{ site.baseurl }}/{{ city.url|replace_first:"/","" }}" class="thumbnail">
-            <!-- <img src="#" alt="Mapnificent {{ city.cityname }}"/> -->
-            <div class="caption">
-              <h3>{{ city.cityname }}</h3>
-            </div>
-          </a>
-        </div>
-        {% endunless %}
-      {% endfor %}
-    </div>
-  </div>
-
-</div>
-
-{% include about.html %}
-
 <footer class="footer">
   <div class="container">
-    <a href="http://stefanwehrmeyer.com/#impressum">Impressum</a>
+    <a href="#about" data-toggle="modal" class="btn btn-default btn-lg" role="button">
+      About
+    </a>
   </div>
 </footer>
+{% include about.html %}
 
-<script src="{{ site.baseurl }}/static/vendor/leaflet/dist/leaflet.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script type="text/javascript">
   $('#map').height($(window).height() - 200);
@@ -74,19 +64,18 @@ layout: base
     }, 1000, 'swing');
   });
 
-  var tileUrl = '{{ site.tileUrl }}';
-  L.Icon.Default.imagePath = '{{ site.baseurl }}/static/vendor/leaflet/dist/images/';
-  var map = L.map('map', {
-    center: [20, 11],
-    zoom: 2,
-    scrollWheelZoom: false
+  const tileUrl = '{{ site.indexTileUrl }}';
+  const map = L.map('map', {
+    center: [61, 23],
+    zoom: 6,
+    scrollWheelZoom: false,
   });
-  defaultTileLayer = new L.TileLayer(tileUrl, {
+  defaultTileLayer = L.tileLayer(tileUrl, {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'});
   map.attributionControl.setPrefix("");
   map.addLayer(defaultTileLayer);
 
-  var marker, coords;
+  let marker, coords;
   {% for city in site.cities %}
     {% unless city.hidden %}
       coords = {{ city.coordinates | jsonify }};
@@ -96,5 +85,4 @@ layout: base
       }
     {% endunless %}
   {% endfor %}
-
 </script>
