@@ -81,7 +81,7 @@ layout: base
       coords = {{ city.coordinates | jsonify }};
       if (coords) {
         marker = L.marker([coords[1], coords[0]]).addTo(map);
-        marker.bindPopup('<h2><a href="{{ city.url|replace_first:"/","" }}">{{ city.cityname }}</a></h2>');
+        marker.bindPopup('<a class="map-link" href="{{ site.baseurl }}{{ city.url | remove_trailing_slash }}">{{ city.cityname }}</a>');
       }
     {% endunless %}
   {% endfor %}

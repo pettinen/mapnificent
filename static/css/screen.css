@@ -141,3 +141,7 @@ a.thumbnail.active .caption {
 .leaflet-popup-content h2 a {
   text-decoration: underline;
 }
+
+.map-link {
+  font-size: 2rem;
+}
