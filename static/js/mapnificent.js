@@ -212,14 +212,12 @@ MapnificentPosition.prototype.getReachableStations = function(stationsAround, st
     const mradius = secs * (1 / secondsPerKm) * 1000;
 
     const point = L.latLng(station.lat, station.lng);
-
     const lngRadius = getLngRadius(station.lat, mradius);
     const latlng2 = L.latLng(station.lat, station.lng - lngRadius);
-    const point2 = this.mapnificent.map.latLngToLayerPoint(latlng2);
+    const point2 = this.mapnificent.map.project(latlng2, zoom);
+    const lpoint = this.mapnificent.map.project(point, zoom);
 
-    const lpoint = this.mapnificent.map.latLngToLayerPoint(point);
     const radius = Math.max(Math.round(lpoint.x - point2.x), 1);
-
     const p = this.mapnificent.map.project(point, zoom);
     const x = Math.round(p.x - start.x);
     const y = Math.round(p.y - start.y);
@@ -544,7 +542,7 @@ Mapnificent.prototype.makeCanvasLayer = function () {
           stationsAround,
           start,
           tileSize,
-          zoom
+          zoom,
         );
         for (const station of stations) {
           ctx.beginPath();
